@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(game)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Compiler warnings
@@ -24,6 +24,7 @@ if(EMSCRIPTEN)
         DOWNLOAD_EXTRACT_TIMESTAMP true
     )
     FetchContent_MakeAvailable(raylib)
+
 elseif(WIN32)
     # Manual setup - no cmake config files in this install
     include_directories(C:/raylib/include)
@@ -32,6 +33,8 @@ elseif(WIN32)
     set_target_properties(raylib PROPERTIES
         IMPORTED_LOCATION "C:/raylib/lib/libraylib.a"
     )
+    
+
 else()
      # Linux/Mac - try system install first, fall back to FetchContent
     find_package(raylib 5.0 QUIET)
@@ -45,6 +48,25 @@ else()
     endif()
 endif()
 
+# Build ImGui as a static library manually
+add_library(imgui STATIC
+        libs/imgui/imgui.cpp
+        libs/imgui/imgui_demo.cpp
+        libs/imgui/imgui_draw.cpp
+        libs/imgui/imgui_tables.cpp
+        libs/imgui/imgui_widgets.cpp
+    )
+target_include_directories(imgui PUBLIC libs/imgui)
+
+# Build rlImGui as a static library
+add_library(rlimgui STATIC
+        libs/rlimgui/rlImGui.cpp
+    )
+target_include_directories(rlimgui PUBLIC
+        libs/rlimgui
+        libs/imgui
+    )
+target_link_libraries(rlimgui PUBLIC raylib imgui)
 # -------------------------------------------------------
 # Executable
 # -------------------------------------------------------
@@ -84,7 +106,7 @@ if(EMSCRIPTEN)
     )
 
 elseif(WIN32)
-    target_link_libraries(${PROJECT_NAME} raylib opengl32 gdi32 winmm)
+    target_link_libraries(${PROJECT_NAME} raylib imgui rlimgui opengl32 gdi32 winmm)
 
     if(CMAKE_BUILD_TYPE STREQUAL "Release")
         set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE TRUE)
@@ -95,7 +117,7 @@ elseif(WIN32)
 
 elseif(UNIX AND NOT APPLE)
     # Linux (Fedora, Ubuntu, etc.)
-    target_link_libraries(${PROJECT_NAME} raylib
+    target_link_libraries(${PROJECT_NAME} raylib imgui rlimgui
         GL X11 Xrandr Xinerama Xcursor Xi
         m dl pthread
     )
@@ -107,7 +129,7 @@ elseif(UNIX AND NOT APPLE)
     endif()
 
 elseif(APPLE)
-    target_link_libraries(${PROJECT_NAME} raylib
+    target_link_libraries(${PROJECT_NAME} raylib imgui rlimgui
         "-framework OpenGL"
         "-framework Cocoa"
         "-framework IOKit"
