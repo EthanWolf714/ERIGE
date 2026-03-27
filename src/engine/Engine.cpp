@@ -35,10 +35,11 @@ void Engine::Update()
 void Engine::Render()
 {
     Texture2D wallText = m_textureManager.Get("assets/pics/mossy.png");
-    BeginDrawing();
-        ClearBackground(BLACK);    
-        m_renderer.Draw(m_camera.GetCamera(), wallText);
-    EndDrawing();
+    
+        m_renderer.BeginFrame(m_camera.GetCamera()); 
+            m_renderer.DrawTestQuad( wallText);
+        m_renderer.EndFrame();
+    
 
 
 }
