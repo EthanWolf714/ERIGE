@@ -4,6 +4,7 @@
 
 
 void Engine::Init(){
+    Logger::DebugPrintF("Engine Initialized");
     InitWindow(800, 450, "Ulfr Engine");
     SetTargetFPS(60);
     m_running = true;
@@ -15,7 +16,7 @@ void Engine::Init(){
     m_textureManager.Load("assets/pics/greystone.png");
     m_textureManager.Load("assets/pics/mossy.png");
     
-    TraceLog(LOG_INFO, "Working directory: %s", GetWorkingDirectory());
+    
 
 }
 
@@ -30,6 +31,7 @@ void Engine::Run(){
 }
 
 void Engine::ShutDown(){
+    Logger::DebugPrintF("Engine Shutdown");
     m_renderer.ShutDown();
     rlImGuiShutdown();
     CloseWindow();

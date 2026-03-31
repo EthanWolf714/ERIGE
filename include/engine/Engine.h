@@ -8,13 +8,14 @@
 #include "TextureManager.h"
 #include "game/Map.h"
 #include "game/Player.h"
+#include "engine/Logger.h"
 
 class Engine {
     public:
         void Init();
         void Run();
         void ShutDown();
-
+    
     private:
         void Update();
         void Render();

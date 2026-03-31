@@ -3,7 +3,7 @@
 #include "rlgl.h"
 #include <string>
 #include "game/Map.h"
-
+#include "Logger.h"
 class Renderer
 {
     public:
