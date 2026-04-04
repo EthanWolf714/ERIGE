@@ -70,11 +70,24 @@ target_link_libraries(rlimgui PUBLIC raylib imgui)
 # -------------------------------------------------------
 # Executable
 # -------------------------------------------------------
-file(GLOB_RECURSE SOURCES "src/*.cpp")
+file(GLOB_RECURSE SOURCES
+    "${CMAKE_SOURCE_DIR}/main.cpp"
+    "${CMAKE_SOURCE_DIR}/Ulfr/Core/*.cpp"
+    "${CMAKE_SOURCE_DIR}/Ulfr/Renderer/*.cpp"
+    "${CMAKE_SOURCE_DIR}/Ulfr/Resources/*.cpp"
+    "${CMAKE_SOURCE_DIR}/Game/Core/*.cpp"
+    "${CMAKE_SOURCE_DIR}/Game/map/*.cpp"
+    "${CMAKE_SOURCE_DIR}/Game/entities/*.cpp"
+    "${CMAKE_SOURCE_DIR}/Editor/Core/*.cpp"
+    "${CMAKE_SOURCE_DIR}/Editor/Panels/*.cpp"
+)
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE
+    ${CMAKE_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}/include
+    ${CMAKE_SOURCE_DIR}/libs/imgui
+    ${CMAKE_SOURCE_DIR}/libs/rlimgui
 )
 
 # -------------------------------------------------------
