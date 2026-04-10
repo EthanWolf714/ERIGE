@@ -5,7 +5,7 @@ set echo on
 mkdir -p ../bin
 
 # Get a list of all the .c files.
-cFilenames=$(find . -type f -name "*.cpp")
+cppFilenames=$(find . -type f -name "*.cpp")
 
 # echo "Files:" $cFilenames
 
@@ -19,5 +19,5 @@ linkerFlags="-L../bin/ -lengine -Wl,-rpath,." #path to linked binarys
 defines="-D_DEBUG -DFIMPORT"
 
 echo "Building $assembly..."
-echo clang $cFilenames $compilerFlags -o ../bin/$assembly $defines $includeFlags $linkerFlags
-clang $cFilenames $compilerFlags -o ../bin/$assembly $defines $includeFlags $linkerFlags
+echo clang $cppFilenames $compilerFlags -o ../bin/$assembly $defines $includeFlags $linkerFlags
+clang $cppFilenames $compilerFlags -o ../bin/$assembly $defines $includeFlags $linkerFlags

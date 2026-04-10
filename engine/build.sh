@@ -5,9 +5,9 @@ set echo on
 mkdir -p ../bin
 
 # Get a list of all the .c files.
-cFilenames=$(find . -type f -name "*.cpp")
+cppFilenames=$(find . -type f -name "*.cpp")
 
-# echo "Files:" $cFilenames
+# echo "Files:" $cppFilenames
 
 assembly="engine"
 compilerFlags="-g -shared -fdeclspec -fPIC"
@@ -18,4 +18,4 @@ linkerFlags="-lvulkan -lxcb -lX11 -lX11-xcb -lxkbcommon -L$VULKAN_SDK/lib -L/usr
 defines="-D_DEBUG -DFEXPORT"
 
 echo "Building $assembly..."
-clang $cFilenames $compilerFlags -o ../bin/lib$assembly.so $defines $includeFlags $linkerFlags
+clang $cppFilenames $compilerFlags -o ../bin/lib$assembly.so $defines $includeFlags $linkerFlags
