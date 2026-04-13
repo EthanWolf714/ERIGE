@@ -7,6 +7,9 @@ struct game_state {
     f32 delta_time;
 };
 
+//no game class
+//game data is defined in game_types.h in a game struct
+// that instance is then passed  to methods
 
 b8 game_initialize(game* game_inst);
 

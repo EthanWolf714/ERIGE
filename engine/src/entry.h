@@ -27,8 +27,6 @@ int main(void)
     }
 
     application app;
-    
-
    
     
     if(!app.application_create(&game_inst)){
