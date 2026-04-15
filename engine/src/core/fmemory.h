@@ -1,8 +1,11 @@
 #pragma once
 
-#include "defines.h"
+#include <defines.h>
+#include <string.h>
+#include <stdio.h>
 #include "platform/platform.h"
 #include "logger.h"
+
 
 
 
@@ -35,15 +38,34 @@ struct memory_stats {
 
 };
 
+static const char* memory_tag_strings[MEMORY_TAG_MAX_TAGS] = {
+    "UNKNOWN    ",
+    "ARRAY      ",
+    "DARRAY     ",
+    "DICT       ",
+    "RING_QUEUE ",
+    "BST        ",
+    "STRING     ",
+    "APPLICATION",
+    "JOB        ",
+    "TEXTURE    ",
+    "MAT_INST   ",
+    "RENDERER   ",
+    "GAME       ",
+    "TRANSFORM  ",
+    "ENTITY     ",
+    "ENTITY_NODE",
+    "SCENE      "};
+
 static struct memory_stats stats;
 class fmemory {
 
     public: 
-        void initialize_memory();
-        void shutdown_memeory();   
+        FAPI void initialize_memory();
+        FAPI void shutdown_memeory();   
 
         FAPI void* falloc(u64 size, memory_tag tag);
-        FAPI void* ffree(void* block, u64 size, memory_tag tag);
+        FAPI void ffree(void* block, u64 size, memory_tag tag);
         FAPI void* fzero_memory(void* block, u64 size);
         FAPI void* fcopy_memory(void* block, const void* source, u64 size);
         FAPI void* fset_memory(void* dest, i32 value, u64 size);

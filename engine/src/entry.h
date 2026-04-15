@@ -2,17 +2,23 @@
 
 #include "core/application.h"
 #include "core/logger.h"
+
 #include "game_types.h"
 
 //externally defined function to create game
 extern b8 create_game(game* out_game);
 
+
+application app;
 /*
     main entry point of app
 */
 int main(void)
 {  
-
+    fmemory memory_system = app.get_memory_system();
+    memory_system.initialize_memory();
+    
+   
     game game_inst;
 
     if(!create_game(&game_inst)){
@@ -26,7 +32,7 @@ int main(void)
         return -2;
     }
 
-    application app;
+    
    
     
     if(!app.application_create(&game_inst)){
@@ -40,7 +46,7 @@ int main(void)
     }
 
 
-    
+    memory_system.shutdown_memeory();
 
     
     return 0;

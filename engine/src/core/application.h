@@ -3,6 +3,7 @@
 #include "defines.h"
 #include "logger.h"
 #include "platform/platform.h"
+#include "core/fmemory.h"
 
 
 struct game;
@@ -40,7 +41,10 @@ class application {
     public:
         FAPI b8 application_create(struct game* game_inst);
         FAPI b8 application_run();
+        FAPI fmemory get_memory_system();
     private:
+        fmemory memory_system;
+
         
 
 };

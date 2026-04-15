@@ -52,6 +52,7 @@ b8 application::application_create(game* game_inst){
 }
         
 b8 application::application_run(){
+    FINFO(memory_system.get_memory_usage_str());
     while(app_state.is_running){
         if(!platform_pump_message(&app_state.platform)){
             app_state.is_running = FALSE;
@@ -70,4 +71,9 @@ b8 application::application_run(){
     platform_shutdown(&app_state.platform);
 
     return TRUE;
+}
+
+fmemory application::get_memory_system()
+{
+    return memory_system;
 }
