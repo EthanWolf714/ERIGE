@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include "platform/platform.h"
 #include "logger.h"
-
+#include "core/fstring.h"
 
 
 
