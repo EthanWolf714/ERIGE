@@ -12,7 +12,7 @@ FOR /R %%f in (*.cpp) do (
 REM echo "Files:" %cppFilenames%
 
 SET assembly=engine
-SET compilerFlags=-g -shared -fuse-ld=lld --target=x86_64-w64-mingw32 -Wvarargs -Wall -Werror 
+SET compilerFlags=-g -shared -Wvarargs -Wall -Werror -fms-runtime-lib=dll_dbg
 REM -Wall -Werror
 SET includeFlags=-Isrc -I%VULKAN_SDK%/Include
 SET linkerFlags=-luser32 -lvulkan-1 -L%VULKAN_SDK%/Lib 
